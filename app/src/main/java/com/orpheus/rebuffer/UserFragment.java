@@ -23,10 +23,10 @@ public class UserFragment extends ListFragment implements View.OnClickListener {
         return view;
     }
 
-    @Override
-    public void onActivityCreated (Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity()),
-                R.arra
-    }
+//    @Override
+//    public void onActivityCreated (Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity()),
+//                R.array.
+//    }
 }
