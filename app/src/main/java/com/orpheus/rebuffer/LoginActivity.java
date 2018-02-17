@@ -35,6 +35,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -64,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private ConnectionDB connectionDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +80,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
+        connectionDB = new ConnectionDB();
+
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -329,6 +336,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         public final String mEmail;
         private final String mPassword;
+        private String z="";
+        private String nm,em,password;
+        private boolean isSuccess=false;
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -338,24 +348,83 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
+            if(mEmail.trim().equals("") ||mPassword.trim().equals(""))
+                z = "Please enter all fields....";
+            else
+            {
+                try {
+                    Connection con = connectionDB.CONN();
+                    if (con == null) {
+                        z = "Please check your internet connection";
+                    } else {
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+                        String query=" select * from user where email='"+mEmail+"' and PASSWORD = '"+mPassword+"'";
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+
+                        Statement stmt = con.createStatement();
+                        // stmt.executeUpdate(query);
+
+
+                        ResultSet rs=stmt.executeQuery(query);
+
+                        while (rs.next())
+
+                        {
+                            nm= rs.getString(1);
+                            em=rs.getString(2);
+                            password=rs.getString(3);
+
+
+
+
+                            if(em.equals(mEmail)&&password.equals(mPassword))
+                            {
+
+                                isSuccess=true;
+                                z = "Login successfull";
+
+                            }
+
+                            else
+
+                                isSuccess=false;
+
+
+
+                        }
+
+
+
+
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    isSuccess = false;
+                    z = "Exceptions"+ex;
                 }
             }
+            return isSuccess;
 
-            // TODO: register the new account here.
-            return true;
+//            try {
+//                // Simulate network access.
+//                Connection con = connectionDB.CONN();
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                return false;
+//            }
+//
+//            for (String credential : DUMMY_CREDENTIALS) {
+//                String[] pieces = credential.split(":");
+//                if (pieces[0].equals(mEmail)) {
+//                    // Account exists, return true if the password matches.
+//                    return pieces[1].equals(mPassword);
+//                }
+//            }
+//
+//            // TODO: register the new account here.
+//            return true;
         }
 
         @Override
