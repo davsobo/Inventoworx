@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.orpheus.rebuffer.ToolsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/UserTop"
+        android:paddingLeft="@dimen/default_margin"
+        android:paddingRight="@dimen/default_margin"
+        >
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/usernamacontainer">
+            <AutoCompleteTextView
+                android:id="@+id/usernama"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="Nama"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                />
+        </android.support.design.widget.TextInputLayout>
+            <TextClock
+                android:id="@+id/textClock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format24Hour="dd/mm/yyyy k:mm"
+                android:paddingLeft="50dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:paddingTop="20dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_toEndOf="@+id/usernamacontainer"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/UserTop">
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </ScrollView>
+
+</RelativeLayout>
