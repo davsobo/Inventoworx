@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Inventoworx.iml" filepath="$PROJECT_DIR$/Inventoworx.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Johan Siau\Documents\GitHub\Inventoworx\app\app.iml" filepath="C:\Users\Johan Siau\Documents\GitHub\Inventoworx\app\app.iml" />
       <module fileurl="file://C:\Users\Johan Siau\Documents\GitHub\Inventoworx\rebuffer.iml" filepath="C:\Users\Johan Siau\Documents\GitHub\Inventoworx\rebuffer.iml" />
     </modules>
   </component>
