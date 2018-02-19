@@ -16,9 +16,9 @@ public class ConnectionDB {
 
     String classs = "com.mysql.jdbc.Driver";
 
-    String url = "jdbc:mysql://192.168.43.48/andro";
-    String un = "ride";
-    String password = "789";
+    String url = "jdbc:mysql://192.168.43.91/andro";
+    String un = "root";
+    String password = "";
 
 
 

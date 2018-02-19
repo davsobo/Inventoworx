@@ -49,11 +49,11 @@
         android:id="@+id/UserMid"
         android:layout_below="@+id/UserTop">
 
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/FragmentUser"
-            />
+        <!--<fragment-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/FragmentUser"-->
+            <!--/>-->
 
     </ScrollView>
     <RelativeLayout
