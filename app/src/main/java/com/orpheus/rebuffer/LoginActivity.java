@@ -31,6 +31,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -193,7 +194,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         boolean cancel = false;
         View focusView = null;
-
+        boolean verified = false;
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
@@ -222,9 +223,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
-            Intent intent = new Intent( LoginActivity.this,ToolsActivity.class);
-            startActivity(intent);
-            finish();
+            verified = mAuthTask.doInBackground();
+            if(verified == true) {
+                Intent intent = new Intent( LoginActivity.this,ToolsActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(),"Login Failed: Wrong E-mail or Password", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
