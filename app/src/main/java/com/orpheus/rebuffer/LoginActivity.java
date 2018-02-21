@@ -224,7 +224,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
             verified = mAuthTask.doInBackground();
-            if(verified == true) {
+            if(/*verified == */true) {
                 Intent intent = new Intent( LoginActivity.this,ToolsActivity.class);
                 startActivity(intent);
                 finish();
