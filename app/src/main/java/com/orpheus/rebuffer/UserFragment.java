@@ -1,6 +1,7 @@
 package com.orpheus.rebuffer;
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,5 +39,7 @@ public class UserFragment extends ListFragment implements OnItemClickListener{
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
         Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent( getActivity(),LoginActivity.class);
+        startActivity(intent);
     }
 }

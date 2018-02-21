@@ -43,25 +43,19 @@
                 android:layout_toEndOf="@+id/usernamacontainer"/>
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/UserMid"
-        android:layout_below="@+id/UserTop">
-
         <fragment
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/FragmentUser"
+            android:id="@+id/UserMid"
+            android:layout_below="@id/UserBot"
             android:name="com.orpheus.rebuffer.UserFragment"
             />
 
-    </ScrollView>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/UserBot"
-        android:layout_below="@+id/UserMid">
+        android:layout_below="@+id/UserTop">
 
         <Button
             android:layout_width="120dp"
