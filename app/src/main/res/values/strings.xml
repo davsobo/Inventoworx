@@ -16,4 +16,20 @@
         completions."
     </string>
     <string name="entry_nama">Nama</string>
+    <string-array name="sample">
+        <item>This</item>
+        <item>Is</item>
+        <item>an</item>
+        <item>example</item>
+        <item>for</item>
+        <item>this</item>
+        <item>list</item>
+        <item>to</item>
+        <item>be</item>
+        <item>scrolled</item>
+        <item>if</item>
+        <item>it</item>
+        <item>is</item>
+        <item>enough</item>
+    </string-array>
 </resources>
