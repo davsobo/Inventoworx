@@ -9,12 +9,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 /**
  * Created by David on 2/17/2018.
  */
 
-public class UserFragment extends ListFragment{
+public class UserFragment extends ListFragment implements OnItemClickListener{
 
 //    private EditText;
 
@@ -25,10 +26,17 @@ public class UserFragment extends ListFragment{
         return view;
     }
 
-//    @Override
-//    public void onActivityCreated (Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity()),
-//                R.array.
-//    }
+    @Override
+    public void onActivityCreated (Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.sample,android.R.layout.simple_list_item_1);
+        setListAdapter(adapter);
+        getListView().setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
+        Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
+    }
 }
