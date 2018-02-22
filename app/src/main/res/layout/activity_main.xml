@@ -19,6 +19,7 @@
         android:onClick="sendMessage"
         />
 
+        <!--Filler ndak penting supaya keliatan ada aktifitas aja -->
     <ProgressBar
         android:id="@+id/progresBar1"
         android:layout_width="wrap_content"

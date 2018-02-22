@@ -18,8 +18,7 @@ import android.widget.Toast;
 
 public class UserFragment extends ListFragment implements OnItemClickListener{
 
-//    private EditText;
-
+    //*****----Inflater buat ngedesign apa aja yg ada dalam fragment-----*****//
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -27,6 +26,7 @@ public class UserFragment extends ListFragment implements OnItemClickListener{
         return view;
     }
 
+    //*****------ini buat content dari si fragment-----*****//
     @Override
     public void onActivityCreated (Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -36,6 +36,9 @@ public class UserFragment extends ListFragment implements OnItemClickListener{
         getListView().setOnItemClickListener(this);
     }
 
+    /* onItemClick dipake buat ganti ke page pilihan berikutnya
+     * todo: Hapus Toast trus coba lempar ke fragment baru jadi gk banyak activity
+     *  */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
         Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();

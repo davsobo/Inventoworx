@@ -16,6 +16,10 @@ public class ConnectionDB {
 
     String classs = "com.mysql.jdbc.Driver";
 
+    /*
+    * url nanti harus diganti ke server yg dipake, ada kemungkinan bakalan ditembak ke azure
+    * todo: make a new db based on MariaDB
+    * */
     String url = "jdbc:mysql://192.168.43.91/andro";
     String un = "root";
     String password = "";
