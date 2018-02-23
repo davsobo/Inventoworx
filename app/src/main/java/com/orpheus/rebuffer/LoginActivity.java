@@ -40,6 +40,21 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -62,14 +77,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+
 
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private ConnectionDB connectionDB;
+
+
+    public static String mEmail = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +98,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
-        connectionDB = new ConnectionDB();
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -165,7 +181,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                Intent intent = new Intent( LoginActivity.this,MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
 //                NavUtils.navigateUpFromSameTask(this);
@@ -180,9 +196,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
 
         // Reset errors.
         mEmailView.setError(null);
@@ -194,7 +207,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         boolean cancel = false;
         View focusView = null;
-        boolean verified = false;
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
@@ -221,17 +233,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
-            verified = mAuthTask.doInBackground();
-            if(/*verified == */true) {
-                Intent intent = new Intent( LoginActivity.this,ToolsActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
-                Toast.makeText(getApplicationContext(),"Login Failed: Wrong E-mail or Password", Toast.LENGTH_SHORT).show();
-            }
-
+            login();
         }
     }
 
@@ -339,119 +341,88 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        public final String mEmail;
-        private final String mPassword;
-        private String z="";
-        private String nm,em,password;
-        private boolean isSuccess=false;
+    private void login() {
+        //Getting values from edit texts
+        final String email = mEmailView.getText().toString().trim();
+        final String password = mPasswordView.getText().toString().trim();
+        /*pDialog.setMessage("Login Process...");
+        showDialog();*/
+        //Creating a string request
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, DBConnection.LOGIN_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+                        //If we are getting success from server
+                        if (response.contains(DBConnection.LOGIN_SUCCESS)) {
+                            mEmail = email;
+                            loginSuccess();
 
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-            if(mEmail.trim().equals("") ||mPassword.trim().equals(""))
-                z = "Please enter all fields....";
-            else
-            {
-                try {
-                    Connection con = connectionDB.CONN();
-                    if (con == null) {
-                        z = "Please check your internet connection";
-                    } else {
-
-                        String query=" select * from user where email='"+mEmail+"' and PASSWORD = '"+mPassword+"'";
-
-
-                        Statement stmt = con.createStatement();
-                        // stmt.executeUpdate(query);
-
-
-                        ResultSet rs=stmt.executeQuery(query);
-
-                        while (rs.next())
-
-                        {
-                            nm= rs.getString(1);
-                            em=rs.getString(2);
-                            password=rs.getString(3);
-
-
-
-
-                            if(em.equals(mEmail)&&password.equals(mPassword))
-                            {
-
-                                isSuccess=true;
-                                z = "Login successfull";
-
-                            }
-
-                            else
-
-                                isSuccess=false;
-
-
-
+                        } else {
+                            //Displaying an error message on toast
+                            Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_LONG).show();
                         }
-
-
-
-
-
                     }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        if (error instanceof NetworkError) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Oops. NetworkError!",
+                                    Toast.LENGTH_LONG).show();
+                        } else if (error instanceof ServerError) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Oops. ServerError!",
+                                    Toast.LENGTH_LONG).show();
+                        } else if (error instanceof AuthFailureError) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Oops. AuthFailureError!",
+                                    Toast.LENGTH_LONG).show();
+                        } else if (error instanceof ParseError) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Oops. ParseError!",
+                                    Toast.LENGTH_LONG).show();
+                        } else if (error instanceof NoConnectionError) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Oops. NoConnectionError!",
+                                    Toast.LENGTH_LONG).show();
+                        } else if (error instanceof TimeoutError) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Oops. Timeout error!",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    /*@Override
+                    public void onErrorResponse(VolleyError error) {
+                        //You can handle error here if you want
+                        Toast.makeText(getApplicationContext(), "The server unreachable: "+error, Toast.LENGTH_LONG).show();
+
+                    }*/
+                }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    //Adding parameters to request
+                    params.put("email", email);
+                    params.put("password", password);
+
+                    //returning parameter
+                    return params;
                 }
-                catch (Exception ex)
-                {
-                    isSuccess = false;
-                    z = "Exceptions"+ex;
-                }
-            }
-            return isSuccess;
+        };
 
-//            try {
-//                // Simulate network access.
-//                Connection con = connectionDB.CONN();
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                return false;
-//            }
-//
-//            for (String credential : DUMMY_CREDENTIALS) {
-//                String[] pieces = credential.split(":");
-//                if (pieces[0].equals(mEmail)) {
-//                    // Account exists, return true if the password matches.
-//                    return pieces[1].equals(mPassword);
-//                }
-//            }
-//
-//            // TODO: register the new account here.
-//            return true;
-        }
+        //Adding the string request to the queue
+        Volley.newRequestQueue(this).add(stringRequest);
 
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
+    }
 
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
+    private void loginSuccess()
+    {
+        Intent intent = new Intent( LoginActivity.this,ToolsActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
 
