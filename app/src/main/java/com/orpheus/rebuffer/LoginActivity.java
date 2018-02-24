@@ -5,6 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
@@ -84,9 +86,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private final int WAIT_LENGTH = 500;
+    private boolean loginResult = false;
 
 
     public static String mEmail = "";
+    public static Integer mLevel = -1;
+    public static String mName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -234,12 +240,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
             login();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //Do something after 2s
+                    if (loginResult == true)
+                        loginSuccess();
+                    else
+                        showProgress(false);
+                }
+            },WAIT_LENGTH);
+
         }
     }
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return email.equals(email.trim());
     }
 
     private boolean isPasswordValid(String password) {
@@ -342,10 +359,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * the user.
      */
 
-    private void login() {
+    private boolean login() {
         //Getting values from edit texts
-        final String email = mEmailView.getText().toString().trim();
+        final String email = mEmailView.getText().toString().trim().toLowerCase();
         final String password = mPasswordView.getText().toString().trim();
+
         /*pDialog.setMessage("Login Process...");
         showDialog();*/
         //Creating a string request
@@ -353,15 +371,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
                         //If we are getting success from server
                         if (response.contains(DBConnection.LOGIN_SUCCESS)) {
                             mEmail = email;
-                            loginSuccess();
-
+                            loginResult = true;
                         } else {
                             //Displaying an error message on toast
                             Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_LONG).show();
+
                         }
                     }
                 },
@@ -393,6 +411,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     "Oops. Timeout error!",
                                     Toast.LENGTH_LONG).show();
                         }
+
                     }
                     /*@Override
                     public void onErrorResponse(VolleyError error) {
@@ -415,7 +434,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         //Adding the string request to the queue
         Volley.newRequestQueue(this).add(stringRequest);
-
+        return loginResult;
     }
 
     private void loginSuccess()
