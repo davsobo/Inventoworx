@@ -5,5 +5,113 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.orpheus.rebuffer.AdminActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/adminTop"
+            android:paddingLeft="@dimen/default_margin"
+            android:paddingRight="@dimen/default_margin"
+            >
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/bigSize"
+                android:hint="@string/entry_nama"
+                android:id="@+id/adminNama" />
+
+            <TextClock
+                android:id="@+id/textClock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/adminNama"
+                android:layout_marginEnd="50dp"
+                android:format24Hour="dd/mm/yyyy k:mm"
+                android:gravity="center_horizontal"
+                android:paddingStart="50dp"
+                android:paddingTop="20dp"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/adminMid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/adminTop"
+            android:layout_marginEnd="18dp"
+            android:paddingLeft="@dimen/default_margin"
+            android:paddingRight="@dimen/default_margin">
+            <!--Ini partisi buat merk-->
+            <TextView
+                android:id="@+id/tagmerk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="Merk" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/tagmerk" />
+            <!--ini partisi buat tipe-->
+            <TextView
+                android:id="@+id/tagtype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/spinner"
+                android:text="Type" />
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="120dp"
+                android:layout_below="@id/tagtype"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/spinner"
+                android:paddingLeft="@dimen/default_margin" />
+            <!--Ini partisi buat ukuran-->
+            <TextView
+                android:id="@+id/tagukuran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/spinner2"
+                android:paddingLeft="@dimen/bigSize"
+                android:text="Ukuran" />
+
+            <Spinner
+                android:id="@+id/spinner3"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/spinner2"
+                android:layout_below="@id/tagukuran"
+                android:paddingLeft="@dimen/default_margin" />
+            <!--Ini partisi buat jumlah-->
+            <TextView
+                android:id="@+id/tagjumlah"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/spinner3"
+                android:paddingLeft="@dimen/bigSize"
+                android:text="Jumlah" />
+
+            <Spinner
+                android:id="@+id/spinner4"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/spinner3"
+                android:layout_below="@id/tagjumlah"
+                android:paddingLeft="@dimen/default_margin" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
