@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     }
 //*****-----Ini buat ganti ke page berikutnya-----*****//
     public void sendMessage(View view) {
-        Intent intent = new Intent( MainActivity.this,ToolsActivity.class);
+        Intent intent = new Intent( MainActivity.this,AdminActivity.class);
         startActivity(intent);
         finish();
     }

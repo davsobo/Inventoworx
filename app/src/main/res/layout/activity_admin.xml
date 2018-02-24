@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.orpheus.rebuffer.AdminActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
+            android:id="@+id/adminTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/adminTop"
             android:paddingLeft="@dimen/default_margin"
-            android:paddingRight="@dimen/default_margin"
-            >
+            android:paddingRight="@dimen/default_margin">
 
             <TextView
+                android:id="@+id/adminNama"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/bigSize"
                 android:hint="@string/entry_nama"
-                android:id="@+id/adminNama" />
+                android:textSize="@dimen/bigSize" />
 
             <TextClock
                 android:id="@+id/textClock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/adminNama"
                 android:layout_marginEnd="50dp"
+                android:layout_toEndOf="@id/adminNama"
                 android:format24Hour="dd/mm/yyyy k:mm"
                 android:gravity="center_horizontal"
                 android:paddingStart="50dp"
-                android:paddingTop="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -44,7 +46,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/adminTop"
-            android:layout_marginEnd="18dp"
             android:paddingLeft="@dimen/default_margin"
             android:paddingRight="@dimen/default_margin">
             <!--Ini partisi buat merk-->
@@ -60,7 +61,9 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@id/tagmerk" />
+                android:layout_below="@id/tagmerk"
+                tools:layout_editor_absoluteX="722dp"
+                tools:layout_editor_absoluteY="916dp" />
             <!--ini partisi buat tipe-->
             <TextView
                 android:id="@+id/tagtype"
@@ -73,10 +76,11 @@
             <Spinner
                 android:id="@+id/spinner2"
                 android:layout_width="120dp"
-                android:layout_below="@id/tagtype"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/tagtype"
                 android:layout_toEndOf="@id/spinner"
-                android:paddingLeft="@dimen/default_margin" />
+                android:paddingLeft="@dimen/default_margin"
+                android:entries="@array/sample"/>
             <!--Ini partisi buat ukuran-->
             <TextView
                 android:id="@+id/tagukuran"
@@ -91,9 +95,10 @@
                 android:id="@+id/spinner3"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/spinner2"
                 android:layout_below="@id/tagukuran"
-                android:paddingLeft="@dimen/default_margin" />
+                android:layout_toEndOf="@id/spinner2"
+                android:paddingLeft="@dimen/default_margin"
+                android:entries="@array/sample"/>
             <!--Ini partisi buat jumlah-->
             <TextView
                 android:id="@+id/tagjumlah"
@@ -108,10 +113,35 @@
                 android:id="@+id/spinner4"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/spinner3"
                 android:layout_below="@id/tagjumlah"
+                android:layout_toEndOf="@id/spinner3"
                 android:paddingLeft="@dimen/default_margin" />
+
+            <Button
+                android:id="@+id/btnplus"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/spinner4"
+                android:background="@drawable/ic_add_circle_black_36dp" />
+
+            <Button
+                android:id="@+id/btnmin"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/btnplus"
+                android:background="@drawable/ic_remove_circle_black_36dp"/>
+
+            <TextView
+                android:id="@+id/sisa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/btnmin"
+                android:textSize="@dimen/bigSize"
+                android:layout_marginStart="20dp"
+                android:hint="Sisa"/>
         </RelativeLayout>
 
     </RelativeLayout>
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
