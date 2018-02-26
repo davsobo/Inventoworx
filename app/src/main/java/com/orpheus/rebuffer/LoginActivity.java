@@ -23,6 +23,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import java.sql.Connection;
@@ -54,8 +56,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -86,13 +93,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private final int WAIT_LENGTH = 500;
+    private final int WAIT_LENGTH = 4000;
     private boolean loginResult = false;
 
-
+    private JSONArray mUserData;
     public static String mEmail = "";
-    public static Integer mLevel = -1;
-    public static String mName = "";
+    public static String mLevel = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -371,14 +377,32 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-//                        Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+                        Log.d("Json Response", response);
                         //If we are getting success from server
-                        if (response.contains(DBConnection.LOGIN_SUCCESS)) {
-                            mEmail = email;
+                        if (response.length() > 10) {
+                            try{
+                                mUserData = new JSONArray(response);
+                                loginResult = true;
+                                Log.d("Json Response", "LOGIN SUCCESS");
+                                Log.d("Json Response", "Email: " + mUserData.getJSONObject(0).getString("email"));
+                                mEmail = mUserData.getJSONObject(0).getString("email");
+                                mLevel = mUserData.getJSONObject(0).getString("ulevel");
+
+
+                            } catch (JSONException e)
+                            {
+                                Log.d("Json ERROR", "Content: "+e.toString() + " -- Message: "+e.getMessage());
+                                Toast.makeText(getApplicationContext(), "JSON ERROR: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
+                            Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_LONG).show();
+
                             loginResult = true;
                         } else {
                             //Displaying an error message on toast
                             Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_LONG).show();
+                            Log.d("Json ERROR", "Login Failed");
 
                         }
                     }
@@ -386,39 +410,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if (error instanceof NetworkError) {
-                            Toast.makeText(getApplicationContext(),
-                                    "Oops. NetworkError!",
-                                    Toast.LENGTH_LONG).show();
-                        } else if (error instanceof ServerError) {
-                            Toast.makeText(getApplicationContext(),
-                                    "Oops. ServerError!",
-                                    Toast.LENGTH_LONG).show();
-                        } else if (error instanceof AuthFailureError) {
-                            Toast.makeText(getApplicationContext(),
-                                    "Oops. AuthFailureError!",
-                                    Toast.LENGTH_LONG).show();
-                        } else if (error instanceof ParseError) {
-                            Toast.makeText(getApplicationContext(),
-                                    "Oops. ParseError!",
-                                    Toast.LENGTH_LONG).show();
-                        } else if (error instanceof NoConnectionError) {
-                            Toast.makeText(getApplicationContext(),
-                                    "Oops. NoConnectionError!",
-                                    Toast.LENGTH_LONG).show();
-                        } else if (error instanceof TimeoutError) {
-                            Toast.makeText(getApplicationContext(),
-                                    "Oops. Timeout error!",
-                                    Toast.LENGTH_LONG).show();
-                        }
+                        Toast.makeText(getApplicationContext(), "The server unreachable: "+error, Toast.LENGTH_LONG).show();
+                        Log.d("Json Error", error.getMessage()+ " -- "+ error.toString());
 
                     }
-                    /*@Override
-                    public void onErrorResponse(VolleyError error) {
-                        //You can handle error here if you want
-                        Toast.makeText(getApplicationContext(), "The server unreachable: "+error, Toast.LENGTH_LONG).show();
-
-                    }*/
                 }) {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
@@ -428,6 +423,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     params.put("password", password);
 
                     //returning parameter
+                    return params;
+                }
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String>  params = new HashMap<String, String>();
+                    params.put("Cookie", "__test=f23dc68a0dd29dbc3fec727ec52f357d; expires=Thu, 31-Dec-37 23:55:55 GMT; path=/");
                     return params;
                 }
         };
