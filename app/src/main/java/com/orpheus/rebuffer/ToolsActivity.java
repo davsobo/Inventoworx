@@ -12,6 +12,6 @@ public class ToolsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tools);
         uname= (TextView) findViewById(R.id.usernama);
-        uname.setText(LoginActivity.mEmail);
+        uname.setText(UserData.getmEmail());
     }
 }

@@ -386,8 +386,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 loginResult = true;
                                 Log.d("Json Response", "LOGIN SUCCESS");
                                 Log.d("Json Response", "Email: " + mUserData.getJSONObject(0).getString("email"));
-                                mEmail = mUserData.getJSONObject(0).getString("email");
-                                mLevel = mUserData.getJSONObject(0).getString("ulevel");
+                                UserData.setmEmail(mUserData.getJSONObject(0).getString("email"));
+                                UserData.setmLevel(mUserData.getJSONObject(0).getString("ulevel"));
 
 
                             } catch (JSONException e)
