@@ -28,7 +28,7 @@ public class UserData {
     private static String mLevel;
 
     public static ArrayList<String> mapMerk;
-    private static ArrayList<String> mapTipe;
+    public static ArrayList<String> mapTipe;
     private static ArrayList<String> mapUkuran;
     private static ArrayList<String> mapBahan;
     private static ArrayList<String> mapJumlah;
