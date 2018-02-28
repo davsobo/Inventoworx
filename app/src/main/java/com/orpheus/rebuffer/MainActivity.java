@@ -53,8 +53,9 @@ public class MainActivity extends AppCompatActivity {
     public String getCookie(String siteName,String CookieName){
         String CookieValue = null;
         CookieManager cookieManager = CookieManager.getInstance();
-        //cookieManager.removeAllCookies(null);
+
         String cookies = cookieManager.getCookie(siteName);
+        //cookieManager.removeAllCookies(null);
         String[] temp=cookies.split(";");
         for (String ar1 : temp ){
             if(ar1.contains(CookieName)){
