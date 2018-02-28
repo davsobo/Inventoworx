@@ -174,6 +174,6 @@ public class ToolsActivity extends AppCompatActivity {
                 spinner6.setAdapter(spinnerAdapter6);
                 Log.d("RMAP ENTRY", "run: ME HERE AFTER ADAPTER");
             }
-        }, 3000);
+        }, 1000);
     }
 }
