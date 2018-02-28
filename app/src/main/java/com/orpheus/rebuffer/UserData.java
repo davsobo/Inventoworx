@@ -14,7 +14,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,14 +27,14 @@ public class UserData {
     private static String mEmail;
     private static String mLevel;
 
-    public static Map<String, String> mapMerk = new HashMap<String, String>();
-    private static Map<String, String> mapTipe = new HashMap<String, String>();
-    private static Map<String, String> mapUkuran = new HashMap<String, String>();
-    private static Map<String, String> mapBahan = new HashMap<String, String>();
-    private static Map<String, String> mapJumlah = new HashMap<String, String>();
-    private static Map<String, String> mapLokasi = new HashMap<String, String>();
+    public static ArrayList<String> mapMerk;
+    private static ArrayList<String> mapTipe;
+    private static ArrayList<String> mapUkuran;
+    private static ArrayList<String> mapBahan;
+    private static ArrayList<String> mapJumlah;
+    private static ArrayList<String> mapLokasi;
 
-    public static Map<String, Map<String, String>> mapInventory = new HashMap<String, Map<String, String>>();
+//    public static Map<String, Map<String, String>> mapInventory = new HashMap<String, Map<String, String>>();
 
 
     public static void setmEmail(String x) {
@@ -63,22 +65,29 @@ public class UserData {
                         if (response.length() > 10) {
                             try {
                                 JSONArray mInventory = new JSONArray(response);
-                                Log.d("Json Response: Inventory", "INVENTORY FETCH SUCCESS");
+
+                                mapMerk = new ArrayList<String>();
+                                mapTipe = new ArrayList<String>();
+                                mapUkuran = new ArrayList<String>();
+                                mapBahan = new ArrayList<String>();
+                                mapJumlah = new ArrayList<String>();
+                                mapLokasi = new ArrayList<String>();
+                                Log.d("Json Response: Inventory", "INVENTORY FETCH SUCCESS : "+  mInventory.length()+ "DATA");
                                 for (int i = 0; i < mInventory.length(); i++) {
-                                    mapMerk.put(mInventory.getJSONObject(i).getString("merk"), mInventory.getJSONObject(i).getString("merk"));
-                                    mapTipe.put(mInventory.getJSONObject(i).getString("tipe"), mInventory.getJSONObject(i).getString("tipe"));
-                                    mapUkuran.put(mInventory.getJSONObject(i).getString("ukuran"), mInventory.getJSONObject(i).getString("ukuran"));
-                                    mapBahan.put(mInventory.getJSONObject(i).getString("bahan"), mInventory.getJSONObject(i).getString("bahan"));
-                                    mapJumlah.put(mInventory.getJSONObject(i).getString("jumlah"), mInventory.getJSONObject(i).getString("jumlah"));
-                                    mapLokasi.put(mInventory.getJSONObject(i).getString("lokasi"), mInventory.getJSONObject(i).getString("lokasi"));
+                                    mapMerk.add(mInventory.getJSONObject(i).getString("merk"));
+                                    mapTipe.add(mInventory.getJSONObject(i).getString("tipe"));
+                                    mapUkuran.add(mInventory.getJSONObject(i).getString("ukuran"));
+                                    mapBahan.add(mInventory.getJSONObject(i).getString("bahan"));
+                                    mapJumlah.add(mInventory.getJSONObject(i).getString("jumlah"));
+                                    mapLokasi.add(mInventory.getJSONObject(i).getString("lokasi"));
                                     Log.d("Json Response: Inventory","i = " + i + "\t" + mInventory.getJSONObject(i).getString("merk") +  "\t" +  mInventory.getJSONObject(i).getString("tipe") +  "\t" +  mInventory.getJSONObject(i).getString("ukuran") +  "\t" +  mInventory.getJSONObject(i).getString("bahan") +  "\t" +  mInventory.getJSONObject(i).getString("jumlah") +  "\t" +  mInventory.getJSONObject(i).getString("lokasi"));
                                 }
-                                mapInventory.put("merk", mapMerk);
-                                mapInventory.put("tipe", mapTipe);
-                                mapInventory.put("ukuran", mapUkuran);
-                                mapInventory.put("bahan", mapBahan);
-                                mapInventory.put("jumlah", mapJumlah);
-                                mapInventory.put("lokasi", mapLokasi);
+                                //mapInventory.put("merk", mapMerk);
+//                                mapInventory.put("tipe", mapTipe);
+//                                mapInventory.put("ukuran", mapUkuran);
+//                                mapInventory.put("bahan", mapBahan);
+//                                mapInventory.put("jumlah", mapJumlah);
+//                                mapInventory.put("lokasi", mapLokasi);
 
 //                                Log.d("Json Response: Inventory", "Email: " + mUserData.getJSONObject(0).getString("email"));
                                 /*for (Map.Entry<String,String> temp : mInventory.EntrySet()) {

@@ -31,7 +31,7 @@ public class TestActivity extends AppCompatActivity {
             public void run() {
                 //Do something after 2s
                 Log.d("MAP Entry", "onCreate: IM HERE");
-                List<StringWithTag> itemList = new ArrayList<StringWithTag>();
+//                List<String> itemList = new ArrayList<String>();
                 Log.d("MAP Entry", "onCreate: IM HERE AGAIN");
 //                for (Map.Entry<String, String> entry : UserData.mapMerk.entrySet())
 //                {
@@ -45,7 +45,7 @@ public class TestActivity extends AppCompatActivity {
 //                }
                 String[] spinnerArray = new String[UserData.mapMerk.size()];
                 Log.d("MAP Entry", "onCreate: IM HERE BEFORE THE LOOP");
-                HashMap<Integer,String> spinnerMap = new HashMap<Integer,String>();
+                HashMap<Integer,String> spinnerMap = new HashMap<Integer, String>();
                 Log.d("MAP Entry", "run: "+UserData.mapMerk.size());
                 for (int i = 0; i < UserData.mapMerk.size(); i++)
                 {
@@ -55,11 +55,11 @@ public class TestActivity extends AppCompatActivity {
                 }
                 Log.d("MAP Entry", "onCreate: IM HERE AFTER THE LOOP");
                 Spinner spinner = (Spinner) findViewById(R.id.spintest);
-                ArrayAdapter<StringWithTag> spinnerAdapter = new ArrayAdapter<StringWithTag>(getApplicationContext(), android.R.layout.simple_spinner_item, itemList);
+                ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, spinnerArray);
                 spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(spinnerAdapter);
                 Log.d("MAP ENTRY", "run: ME HERE AFTER ADAPTER");
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                /*spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         StringWithTag swt = (StringWithTag) parent.getItemAtPosition(position);
@@ -71,13 +71,13 @@ public class TestActivity extends AppCompatActivity {
                     public void onNothingSelected(AdapterView<?> parent) {
 
                     }
-                });
+                });*/
             }
         }, 5000);
 
     }
 
-    private static class StringWithTag {
+    /*private static class StringWithTag {
         public String string;
         public Object tag;
 
@@ -90,7 +90,7 @@ public class TestActivity extends AppCompatActivity {
         public String toString() {
             return string;
         }
-    }
+    }*/
 
 
 }
