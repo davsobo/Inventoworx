@@ -9,7 +9,7 @@ public class DBConnection {
 //    public static final String LOGIN_URL = "http://192.168.43.118/inventoworx/login.php";
     public static final String LOGIN_URL = "http://invento.html-5.me//login.php";
     public static final String INVENTORY_URL = "http://invento.html-5.me//inventory.php";
-
+    public static final String COOKIE = "__test=e833043ed0ff06493dd5189f7e598644; expires=Thu, 31-Dec-37 23:55:55 GMT; path=/";
     //If server response is equal to this that means login is successful
     public static final String LOGIN_SUCCESS = "success";
 
