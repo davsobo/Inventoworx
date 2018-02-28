@@ -32,9 +32,9 @@
                 android:layout_toEndOf="@id/adminNama"
                 android:format24Hour="dd/mm/yyyy k:mm"
                 android:gravity="center_horizontal"
+                android:paddingBottom="10dp"
                 android:paddingStart="50dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -79,8 +79,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tagtype"
                 android:layout_toEndOf="@id/spinner"
-                android:paddingLeft="@dimen/default_margin"
-                android:entries="@array/sample"/>
+                android:entries="@array/sample"
+                android:paddingLeft="@dimen/default_margin" />
             <!--Ini partisi buat ukuran-->
             <TextView
                 android:id="@+id/tagukuran"
@@ -97,50 +97,78 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tagukuran"
                 android:layout_toEndOf="@id/spinner2"
-                android:paddingLeft="@dimen/default_margin"
-                android:entries="@array/sample"/>
+                android:entries="@array/sample"
+                android:paddingLeft="@dimen/default_margin" />
+            <!--Ini partisi buat bahan-->
+            <TextView
+                android:id="@+id/tagbahan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/spinner3"
+                android:paddingLeft="@dimen/bigSize"
+                android:text="Bahan" />
+
+            <Spinner
+                android:id="@+id/spinner4"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tagbahan"
+                android:layout_toEndOf="@id/spinner3"
+                android:paddingLeft="@dimen/default_margin" />
+
             <!--Ini partisi buat jumlah-->
             <TextView
                 android:id="@+id/tagjumlah"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/spinner3"
+                android:layout_toEndOf="@+id/spinner4"
                 android:paddingLeft="@dimen/bigSize"
                 android:text="Jumlah" />
 
             <Spinner
-                android:id="@+id/spinner4"
+                android:id="@+id/spinner5"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tagjumlah"
-                android:layout_toEndOf="@id/spinner3"
+                android:layout_toEndOf="@id/spinner4"
                 android:paddingLeft="@dimen/default_margin" />
 
-            <Button
-                android:id="@+id/btnplus"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="20dp"
-                android:layout_toEndOf="@id/spinner4"
-                android:background="@drawable/ic_add_circle_black_36dp" />
+            <!--Ini partisi buat lokasi-->
+            <TextView
+                android:id="@+id/tagLokasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/spinner5"
+                android:paddingLeft="@dimen/bigSize"
+                android:text="Lokasi" />
 
+            <Spinner
+                android:id="@+id/spinner6"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tagjumlah"
+                android:layout_toEndOf="@id/spinner5"
+                android:paddingLeft="@dimen/default_margin" />
+
+            <!--Partisi buat button dan sisa-->
             <Button
                 android:id="@+id/btnmin"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
-                android:layout_toEndOf="@id/btnplus"
-                android:background="@drawable/ic_remove_circle_black_36dp"/>
-
+                android:layout_toEndOf="@id/spinner6"
+                android:background="@drawable/ic_remove_circle_black_36dp" />
             <TextView
                 android:id="@+id/sisa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/btnmin"
-                android:textSize="@dimen/bigSize"
                 android:layout_marginStart="20dp"
-                android:hint="Sisa"/>
+                android:layout_toEndOf="@id/btnmin"
+                android:hint="Sisa"
+                android:textSize="@dimen/bigSize" />
         </RelativeLayout>
 
     </RelativeLayout>

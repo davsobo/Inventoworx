@@ -13,5 +13,4 @@ public class DBConnection {
     public static final String LOGIN_SUCCESS = "success";
 
 
-
 }

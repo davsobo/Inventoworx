@@ -13,11 +13,9 @@ import java.util.ArrayList;
 public class ToolsActivity extends AppCompatActivity {
 
     private TextView uname;
-    public Spinner spinner1;
-    public Spinner spinner2;
-    public Spinner spinner3;
-    public Spinner spinner4;
-    private ArrayList<Spinner> spinnerCollection ;
+    public Spinner spinner1, spinner2, spinner3, spinner4, spinner5, spinner6;
+    private ArrayList<Spinner> spinnerCollection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +26,14 @@ public class ToolsActivity extends AppCompatActivity {
         spinner2 = (Spinner) findViewById(R.id.spinner2);
         spinner3 = (Spinner) findViewById(R.id.spinner3);
         spinner4 = (Spinner) findViewById(R.id.spinner4);
+        spinner5 = (Spinner) findViewById(R.id.spinner5);
+        spinner6 = (Spinner) findViewById(R.id.spinner6);
         spinnerCollection.add(spinner1);
         spinnerCollection.add(spinner2);
         spinnerCollection.add(spinner3);
         spinnerCollection.add(spinner4);
+        spinnerCollection.add(spinner5);
+        spinnerCollection.add(spinner6);
 
         uname = (TextView) findViewById(R.id.userNama);
         uname.setText(UserData.getmEmail());
@@ -40,8 +42,8 @@ public class ToolsActivity extends AppCompatActivity {
                 this, R.array.sample, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        for (Spinner spinner :spinnerCollection
-             ) {
+        for (Spinner spinner : spinnerCollection
+                ) {
             spinner.setAdapter(adapter);
             spinner.setOnItemSelectedListener(
                     new AdapterView.OnItemSelectedListener() {

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.orpheus.rebuffer.TestActivity"
-    android:background="@color/black">
+    android:background="@color/black"
+    tools:context="com.orpheus.rebuffer.TestActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,25 +16,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:src="@drawable/eworx"
-            />
+            android:src="@drawable/eworx" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@color/white"
-            android:textSize="30dp"
+            android:layout_above="@+id/progresBar1"
             android:gravity="center_horizontal"
             android:paddingTop="50dp"
-            android:layout_above="@+id/progresBar1"
-            android:text="@string/app_name"/>
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
         <ProgressBar
             android:id="@+id/progresBar1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/Theme.AppCompat.Light"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="80dp"/>
+            android:layout_marginBottom="80dp"
+            android:theme="@style/Theme.AppCompat.Light" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

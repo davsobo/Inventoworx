@@ -4,30 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.orpheus.rebuffer.MainActivity"
-    android:background="@color/black">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="@color/black"
+    tools:context="com.orpheus.rebuffer.MainActivity">
 
-    <ImageView
-        android:id="@+id/logo"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:src="@drawable/eworx"
-        android:onClick="sendMessage"
-        />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:onClick="sendMessage"
+            android:src="@drawable/eworx" />
 
         <!--Filler ndak penting supaya keliatan ada aktifitas aja -->
-    <ProgressBar
-        android:id="@+id/progresBar1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.AppCompat.Light"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"/>
+        <ProgressBar
+            android:id="@+id/progresBar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="80dp"
+            android:theme="@style/Theme.AppCompat.Light" />
 
-</RelativeLayout>
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
