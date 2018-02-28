@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="#555"
     tools:context="com.orpheus.rebuffer.TestActivity">
 
     <RelativeLayout
@@ -19,12 +19,14 @@
             android:src="@drawable/eworx" />
 
         <TextView
+            android:id="@+id/test"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/progresBar1"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:gravity="center_horizontal"
+            android:hint="@string/app_name"
             android:paddingTop="50dp"
-            android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="30dp" />
 
@@ -36,6 +38,14 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="80dp"
             android:theme="@style/Theme.AppCompat.Light" />
+
+        <Spinner
+            android:id="@+id/spintest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="143dp" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
