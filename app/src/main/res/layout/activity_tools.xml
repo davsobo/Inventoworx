@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context="com.orpheus.rebuffer.ToolsActivity">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,6 +22,7 @@
                 android:id="@+id/userNama"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/default_margin"
                 android:hint="@string/entry_nama"
                 android:textSize="@dimen/bigSize" />
 
@@ -102,9 +104,8 @@
                 android:id="@+id/tagbahan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/spinner3"
-                android:paddingLeft="@dimen/bigSize"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/spinner"
                 android:text="Bahan" />
 
             <Spinner
@@ -112,7 +113,6 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tagbahan"
-                android:layout_toEndOf="@id/spinner3"
                 android:paddingLeft="@dimen/default_margin" />
 
             <!--Ini partisi buat jumlah-->
@@ -120,9 +120,8 @@
                 android:id="@+id/tagjumlah"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_below="@id/spinner2"
                 android:layout_toEndOf="@+id/spinner4"
-                android:paddingLeft="@dimen/bigSize"
                 android:text="Jumlah" />
 
             <Spinner
@@ -138,7 +137,7 @@
                 android:id="@+id/tagLokasi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_below="@id/spinner3"
                 android:layout_toEndOf="@+id/spinner5"
                 android:paddingLeft="@dimen/bigSize"
                 android:text="Lokasi" />
@@ -157,6 +156,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/default_margin"
                 android:layout_toEndOf="@id/spinner6"
                 android:background="@drawable/ic_remove_circle_black_36dp" />
 
@@ -165,6 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/default_margin"
                 android:layout_toEndOf="@id/btnmin"
                 android:hint="Sisa"
                 android:textSize="@dimen/bigSize" />
@@ -173,4 +174,4 @@
     </RelativeLayout>
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
