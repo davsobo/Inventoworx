@@ -439,6 +439,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void loginSuccess() {
+        UserData.fetchDataInventory(getApplicationContext());
+
         Intent intent = new Intent(LoginActivity.this, ToolsActivity.class);
         startActivity(intent);
         finish();

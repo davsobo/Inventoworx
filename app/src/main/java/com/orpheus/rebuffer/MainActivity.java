@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -16,15 +18,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.d("JSON MAINACTIVITY", "Try WebView");
         WebView myWebView = (WebView) findViewById(R.id.webview);
-        myWebView.loadUrl("http://invento.html-5.me/");
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-
-        CookieManager.getInstance().setAcceptThirdPartyCookies(myWebView,true);
-        Log.d("JSON MAINACTIVITY", getCookie("http://invento.html-5.me/","__test"));
-        UserData.fetchDataInventory(getApplicationContext());
+        myWebView.setWebChromeClient(new WebChromeClient());
+        myWebView.loadUrl("http://invento.html-5.me/login.php");
+        DBConnection.setCOOKIE(getCookie("http://invento.html-5.me/","__test"));
+        Log.d("JSON COOKIE", DBConnection.COOKIE);
     }
 
     //*****-----Ini buat ganti ke page berikutnya-----*****//
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     public String getCookie(String siteName,String CookieName){
         String CookieValue = null;
-
         CookieManager cookieManager = CookieManager.getInstance();
         String cookies = cookieManager.getCookie(siteName);
         String[] temp=cookies.split(";");
