@@ -29,10 +29,10 @@ public class UserData {
 
     public static ArrayList<String> mapMerk;
     public static ArrayList<String> mapTipe;
-    private static ArrayList<String> mapUkuran;
-    private static ArrayList<String> mapBahan;
-    private static ArrayList<String> mapJumlah;
-    private static ArrayList<String> mapLokasi;
+    public static ArrayList<String> mapUkuran;
+    public static ArrayList<String> mapBahan;
+    public static ArrayList<String> mapJumlah;
+    public static ArrayList<String> mapLokasi;
 
 //    public static Map<String, Map<String, String>> mapInventory = new HashMap<String, Map<String, String>>();
 
