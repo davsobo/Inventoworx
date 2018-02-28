@@ -20,10 +20,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d("JSON MAINACTIVITY", "Try WebView");
         WebView myWebView = (WebView) findViewById(R.id.webview);
+        Log.d("JSON MAINACTIVITY", "Make WebView");
         WebSettings webSettings = myWebView.getSettings();
+        Log.d("JSON MAINACTIVITY", "Make WebSetting");
         webSettings.setJavaScriptEnabled(true);
+        Log.d("JSON MAINACTIVITY", "Try JavaScript");
         myWebView.setWebChromeClient(new WebChromeClient());
+        Log.d("JSON MAINACTIVITY", "SetChromeClient");
         myWebView.loadUrl("http://invento.html-5.me/login.php");
+        Log.d("JSON MAINACTIVITY", "Try Load URL");
         DBConnection.setCOOKIE(getCookie("http://invento.html-5.me/","__test"));
         Log.d("JSON COOKIE", DBConnection.COOKIE);
     }
