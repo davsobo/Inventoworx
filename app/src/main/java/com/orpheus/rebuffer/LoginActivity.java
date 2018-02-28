@@ -428,7 +428,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Cookie", "__test=f23dc68a0dd29dbc3fec727ec52f357d; expires=Thu, 31-Dec-37 23:55:55 GMT; path=/");
+                params.put("Cookie", DBConnection.COOKIE);
                 return params;
             }
         };

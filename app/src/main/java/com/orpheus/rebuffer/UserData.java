@@ -71,6 +71,7 @@ public class UserData {
                                     mapBahan.put(mInventory.getJSONObject(i).getString("bahan"), mInventory.getJSONObject(i).getString("bahan"));
                                     mapJumlah.put(mInventory.getJSONObject(i).getString("jumlah"), mInventory.getJSONObject(i).getString("jumlah"));
                                     mapLokasi.put(mInventory.getJSONObject(i).getString("lokasi"), mInventory.getJSONObject(i).getString("lokasi"));
+                                    Log.d("Json Response: Inventory","i = " + i + "\t" + mInventory.getJSONObject(i).getString("merk") +  "\t" +  mInventory.getJSONObject(i).getString("tipe") +  "\t" +  mInventory.getJSONObject(i).getString("ukuran") +  "\t" +  mInventory.getJSONObject(i).getString("bahan") +  "\t" +  mInventory.getJSONObject(i).getString("jumlah") +  "\t" +  mInventory.getJSONObject(i).getString("lokasi"));
                                 }
                                 mapInventory.put("merk", mapMerk);
                                 mapInventory.put("tipe", mapTipe);
@@ -121,7 +122,7 @@ public class UserData {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Cookie", "__test=e833043ed0ff06493dd5189f7e598644; expires=Thu, 31-Dec-37 23:55:55 GMT; path=/");
+                params.put("Cookie", DBConnection.COOKIE);
                 return params;
             }
         };
