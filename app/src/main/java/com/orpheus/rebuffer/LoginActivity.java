@@ -381,7 +381,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         Log.d("Json Response", response);
                         //If we are getting success from server
                         if (response.length() > 10) {
-                            try{
+                            try {
                                 mUserData = new JSONArray(response);
                                 loginResult = true;
                                 Log.d("Json Response", "LOGIN SUCCESS");
@@ -390,9 +390,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 UserData.setmLevel(mUserData.getJSONObject(0).getString("ulevel"));
 
 
-                            } catch (JSONException e)
-                            {
-                                Log.d("Json ERROR", "Content: "+e.toString() + " -- Message: "+e.getMessage());
+                            } catch (JSONException e) {
+                                Log.d("Json ERROR", "Content: " + e.toString() + " -- Message: " + e.getMessage());
                                 Toast.makeText(getApplicationContext(), "JSON ERROR: " + e.getMessage(), Toast.LENGTH_LONG).show();
                             }
 
@@ -410,27 +409,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "The server unreachable: "+error, Toast.LENGTH_LONG).show();
-                        Log.d("Json Error", error.getMessage()+ " -- "+ error.toString());
+                        Toast.makeText(getApplicationContext(), "The server unreachable: " + error, Toast.LENGTH_LONG).show();
+                        Log.d("Json Error", error.getMessage() + " -- " + error.toString());
 
                     }
                 }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
-                    //Adding parameters to request
-                    params.put("email", email);
-                    params.put("password", password);
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                //Adding parameters to request
+                params.put("email", email);
+                params.put("password", password);
 
-                    //returning parameter
-                    return params;
-                }
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String>  params = new HashMap<String, String>();
-                    params.put("Cookie", "__test=f23dc68a0dd29dbc3fec727ec52f357d; expires=Thu, 31-Dec-37 23:55:55 GMT; path=/");
-                    return params;
-                }
+                //returning parameter
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Cookie", "__test=f23dc68a0dd29dbc3fec727ec52f357d; expires=Thu, 31-Dec-37 23:55:55 GMT; path=/");
+                return params;
+            }
         };
 
         //Adding the string request to the queue
