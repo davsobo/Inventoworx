@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private final int WAIT_LENGTH = 4000;
+    private final int WAIT_LENGTH = 5000;
     private boolean loginResult = false;
 
     private JSONArray mUserData;
@@ -251,7 +251,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 public void run() {
                     //Do something after 2s
                     if (loginResult == true)
-                        loginSuccess();
+                        loginSuccess(Integer.parseInt(UserData.getmLevel(),10));
                     else
                         showProgress(false);
                 }
@@ -438,12 +438,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         return loginResult;
     }
 
-    private void loginSuccess() {
+    private void loginSuccess(int level) {
         UserData.fetchDataInventory(getApplicationContext());
-
-        Intent intent = new Intent(LoginActivity.this, ToolsActivity.class);
-        startActivity(intent);
-        finish();
+        if(level == 1)
+        {
+            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else
+        {
+            Intent intent = new Intent(LoginActivity.this, ToolsActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
 
