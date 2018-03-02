@@ -214,7 +214,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
+        final String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -245,8 +245,48 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            login();
-            new Handler().postDelayed(new Runnable() {
+            UserRequest.fetchData(
+                    getApplicationContext(),
+                    DBConnection.LOGIN_URL,
+                    new HashMap<String, String>() {{
+                        put("email", mEmailView.getText().toString().trim().toLowerCase());
+                        put("password", mPasswordView.getText().toString().trim());
+                    }},
+                    new UserRequest.ServerCallback() {
+                        @Override
+                        public void onSuccess(String result) {
+                            if (UserRequest.isJSONValid(result)) {
+                                try {
+                                    mUserData = new JSONArray(result);
+                                    Log.d("Json Login", "LOGIN SUCCESS");
+                                    Log.d("Json Login", "Email: " + mUserData.getJSONObject(0).getString("email"));
+                                    UserData.setmEmail(mUserData.getJSONObject(0).getString("email"));
+                                    UserData.setmLevel(mUserData.getJSONObject(0).getString("ulevel"));
+
+
+                                    loginSuccess(Integer.parseInt(UserData.getmLevel(),10));
+
+                                } catch (JSONException e) {
+                                    Log.d("Json ERROR", "Content: " + e.toString() + " -- Message: " + e.getMessage());
+                                    Toast.makeText(getApplicationContext(), "JSON ERROR: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+
+                                Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_LONG).show();
+
+                                loginResult = true;
+                            } else {
+                                //Displaying an error message on toast
+                                Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_LONG).show();
+                                Log.d("Json ERROR", "Login Failed");
+                                showProgress(false);
+
+                            }
+
+                        }
+                    }
+            );
+            //login();
+            /*new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     //Do something after 2s
@@ -255,7 +295,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     else
                         showProgress(false);
                 }
-            }, WAIT_LENGTH);
+            }, WAIT_LENGTH);*/
 
         }
     }
@@ -365,13 +405,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * the user.
      */
 
-    private boolean login() {
+    /*private boolean login() {
         //Getting values from edit texts
         final String email = mEmailView.getText().toString().trim().toLowerCase();
         final String password = mPasswordView.getText().toString().trim();
 
-        /*pDialog.setMessage("Login Process...");
-        showDialog();*/
+        *//*pDialog.setMessage("Login Process...");
+        showDialog();*//*
         //Creating a string request
         StringRequest stringRequest = new StringRequest(Request.Method.POST, DBConnection.LOGIN_URL,
                 new Response.Listener<String>() {
@@ -436,10 +476,51 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         //Adding the string request to the queue
         Volley.newRequestQueue(this).add(stringRequest);
         return loginResult;
-    }
+    }*/
 
     private void loginSuccess(int level) {
         UserData.fetchDataInventory(getApplicationContext());
+        UserRequest.fetchData(
+                getApplicationContext(),
+                DBConnection.INVENTORY_URL,
+                new HashMap<String, String>() {{
+                    put("function", "VIEW_ALL");
+                }},
+                new UserRequest.ServerCallback() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Log.d("JSON SUCCESS", "onSuccess: "+result);
+                        if (UserRequest.isJSONValid(result)) {
+                            try {
+                                JSONArray mInventory = new JSONArray(result);
+
+                                UserData.mapMerk = new ArrayList<String>();
+                                UserData.mapTipe = new ArrayList<String>();
+                                UserData.mapUkuran = new ArrayList<String>();
+                                UserData.mapBahan = new ArrayList<String>();
+                                UserData.mapJumlah = new ArrayList<String>();
+                                UserData.mapLokasi = new ArrayList<String>();
+
+                                Log.d("Json Response:Inventory", "INVENTORY FETCH SUCCESS : "+  mInventory.length()+ "DATA");
+                                for (int i = 0; i < mInventory.length(); i++) {
+
+                                    UserData.mapMerk.add(mInventory.getJSONObject(i).getString("merk"));
+                                    UserData.mapTipe.add(mInventory.getJSONObject(i).getString("tipe"));
+                                    UserData.mapUkuran.add(mInventory.getJSONObject(i).getString("ukuran"));
+                                    UserData.mapBahan.add(mInventory.getJSONObject(i).getString("bahan"));
+                                    UserData.mapJumlah.add(mInventory.getJSONObject(i).getString("jumlah"));
+                                    UserData.mapLokasi.add(mInventory.getJSONObject(i).getString("lokasi"));
+                                    Log.d("Json Response:Inventory","i = " + i + "\t" + mInventory.getJSONObject(i).getString("merk") +  "\t" +  mInventory.getJSONObject(i).getString("tipe") +  "\t" +  mInventory.getJSONObject(i).getString("ukuran") +  "\t" +  mInventory.getJSONObject(i).getString("bahan") +  "\t" +  mInventory.getJSONObject(i).getString("jumlah") +  "\t" +  mInventory.getJSONObject(i).getString("lokasi"));
+                                }
+                            } catch (JSONException e) {
+                                Log.d("Json ERROR", "Content: " + e.toString() + " -- Message: " + e.getMessage());
+                            }
+                        } else {
+                            Log.d("Json ERROR", "Login Failed");
+                        }
+                    }
+                }
+        );
         if(level == 1)
         {
             Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
