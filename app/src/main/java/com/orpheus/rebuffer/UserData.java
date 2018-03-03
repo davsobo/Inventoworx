@@ -32,7 +32,11 @@ public class UserData {
     public static ArrayList<String> mapBahan;
     public static ArrayList<String> mapJumlah;
     public static ArrayList<String> mapLokasi;
-    public static Map<Integer,String> mapSpinner;
+
+
+    /** Use This Instead for the Spinner SH*T*/
+    public static ArrayList<String> valSpinner = new ArrayList<String>();
+    public static Map<Integer,String> mapSpinner = new HashMap<Integer, String>();
 
 //    public static Map<String, Map<String, String>> mapInventory = new HashMap<String, Map<String, String>>();
 
@@ -66,6 +70,7 @@ public class UserData {
                             try {
                                 JSONArray mInventory = new JSONArray(response);
 
+
                                 mapMerk = new ArrayList<String>();
                                 mapTipe = new ArrayList<String>();
                                 mapUkuran = new ArrayList<String>();
@@ -74,6 +79,10 @@ public class UserData {
                                 mapLokasi = new ArrayList<String>();
                                 Log.d("Json Response: Inventory", "INVENTORY FETCH SUCCESS : "+  mInventory.length()+ "DATA");
                                 for (int i = 0; i < mInventory.length(); i++) {
+                                    String temp = mInventory.getJSONObject(i).getString("merk") +  "\t" +  mInventory.getJSONObject(i).getString("tipe") +  "\t" +  mInventory.getJSONObject(i).getString("ukuran") +  "\t" +  mInventory.getJSONObject(i).getString("bahan") +  "\t" +  mInventory.getJSONObject(i).getString("jumlah") +  "\t" +  mInventory.getJSONObject(i).getString("lokasi");
+                                    valSpinner.add(temp);
+                                    mapSpinner.put(i,mInventory.getJSONObject(i).getString("id"));
+
                                     mapMerk.add(mInventory.getJSONObject(i).getString("merk"));
                                     mapTipe.add(mInventory.getJSONObject(i).getString("tipe"));
                                     mapUkuran.add(mInventory.getJSONObject(i).getString("ukuran"));
