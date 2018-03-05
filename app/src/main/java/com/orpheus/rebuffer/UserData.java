@@ -66,6 +66,7 @@ public class UserData {
                             try {
                                 JSONArray mInventory = new JSONArray(response);
 
+                                Log.d("LOL",response);
                                 mapMerk = new ArrayList<String>();
                                 mapTipe = new ArrayList<String>();
                                 mapUkuran = new ArrayList<String>();

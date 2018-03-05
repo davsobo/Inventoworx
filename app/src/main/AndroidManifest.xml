@@ -25,10 +25,7 @@
         </activity>
         <activity
             android:name=".TestActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-
-
-        </activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
@@ -41,11 +38,19 @@
         <activity
             android:name=".ToolsActivity"
             android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.orpheus.rebuffer.MainActivity" />
         </activity>
         <activity
             android:name=".AdminActivity"
-            android:theme="@style/AppTheme"
-            >
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.orpheus.rebuffer.MainActivity" />
+        </activity>
+        <activity android:theme="@style/AppTheme"
+            android:name=".ToolsActivity2">
         </activity>
     </application>
 
