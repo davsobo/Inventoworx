@@ -264,7 +264,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     UserData.setmLevel(mUserData.getJSONObject(0).getString("ulevel"));
 
 
-                                    loginSuccess(Integer.parseInt(UserData.getmLevel(),10));
+                                    loginSuccess(Integer.parseInt(UserData.getmLevel(), 10));
 
                                 } catch (JSONException e) {
                                     Log.d("Json ERROR", "Content: " + e.toString() + " -- Message: " + e.getMessage());
@@ -477,19 +477,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Volley.newRequestQueue(this).add(stringRequest);
         return loginResult;
     }*/
-
     private void loginSuccess(int level) {
-        UserData.fetchDataInventory(getApplicationContext());
+        //UserData.fetchDataInventory(getApplicationContext());
         UserRequest.fetchData(
                 getApplicationContext(),
                 DBConnection.INVENTORY_URL,
                 new HashMap<String, String>() {{
                     put("function", "VIEW_ALL");
+                    put("user", UserData.getmEmail());
                 }},
                 new UserRequest.ServerCallback() {
                     @Override
                     public void onSuccess(String result) {
-                        Log.d("JSON SUCCESS", "onSuccess: "+result);
+                        Log.d("JSON SUCCESS", "onSuccess: " + result);
                         if (UserRequest.isJSONValid(result)) {
                             try {
                                 JSONArray mInventory = new JSONArray(result);
@@ -501,7 +501,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 UserData.mapJumlah = new ArrayList<String>();
                                 UserData.mapLokasi = new ArrayList<String>();
 
-                                Log.d("Json Response:Inventory", "INVENTORY FETCH SUCCESS : "+  mInventory.length()+ "DATA");
+                                Log.d("Json Response:Inventory", "INVENTORY FETCH SUCCESS : " + mInventory.length() + "DATA");
                                 for (int i = 0; i < mInventory.length(); i++) {
 
                                     UserData.mapMerk.add(mInventory.getJSONObject(i).getString("merk"));
@@ -510,7 +510,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     UserData.mapBahan.add(mInventory.getJSONObject(i).getString("bahan"));
                                     UserData.mapJumlah.add(mInventory.getJSONObject(i).getString("jumlah"));
                                     UserData.mapLokasi.add(mInventory.getJSONObject(i).getString("lokasi"));
-                                    Log.d("Json Response:Inventory","i = " + i + "\t" + mInventory.getJSONObject(i).getString("merk") +  "\t" +  mInventory.getJSONObject(i).getString("tipe") +  "\t" +  mInventory.getJSONObject(i).getString("ukuran") +  "\t" +  mInventory.getJSONObject(i).getString("bahan") +  "\t" +  mInventory.getJSONObject(i).getString("jumlah") +  "\t" +  mInventory.getJSONObject(i).getString("lokasi"));
+                                    UserData.valSpinner.add(mInventory.getJSONObject(i).getString("merk") + "," + mInventory.getJSONObject(i).getString("tipe") + "," + mInventory.getJSONObject(i).getString("ukuran") + "," + mInventory.getJSONObject(i).getString("bahan") + "," + mInventory.getJSONObject(i).getString("lokasi"));
+                                    UserData.mapSpinner.put(i,mInventory.getJSONObject(i).getString("id"));
+                                    Log.d("Json Response:Inventory", "i = " + i + "\t" + mInventory.getJSONObject(i).getString("merk") + "\t" + mInventory.getJSONObject(i).getString("tipe") + "\t" + mInventory.getJSONObject(i).getString("ukuran") + "\t" + mInventory.getJSONObject(i).getString("bahan") + "\t" + mInventory.getJSONObject(i).getString("jumlah") + "\t" + mInventory.getJSONObject(i).getString("lokasi"));
                                 }
                             } catch (JSONException e) {
                                 Log.d("Json ERROR", "Content: " + e.toString() + " -- Message: " + e.getMessage());
@@ -518,21 +520,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         } else {
                             Log.d("Json ERROR", "Login Failed");
                         }
+                        if (Integer.parseInt(UserData.getmLevel()) == 1) {
+                            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Intent intent = new Intent(LoginActivity.this, ToolsActivity2.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
                 }
         );
-        if(level == 1)
-        {
-            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        else
-        {
-            Intent intent = new Intent(LoginActivity.this, ToolsActivity2.class);
-            startActivity(intent);
-            finish();
-        }
+
     }
 }
 

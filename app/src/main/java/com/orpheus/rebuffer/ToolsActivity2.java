@@ -5,9 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ToolsActivity2 extends AppCompatActivity {
@@ -24,10 +27,12 @@ public class ToolsActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tools2);
+        Log.d("JSON data", "onCreate: "+UserData.valSpinner.toString());
         mMasterTipe.add("A");mMasterTipe.add("A");mMasterTipe.add("A");mMasterTipe.add("A");mMasterTipe.add("A");
         mMasterUkuran.add("B");mMasterUkuran.add("B");mMasterUkuran.add("B");mMasterUkuran.add("B");mMasterUkuran.add("B");
         mMasterMerk.add("C");mMasterMerk.add("C");mMasterMerk.add("C");mMasterMerk.add("C");mMasterMerk.add("C");mMasterMerk.add("C");
         mMasterBahan.add("D");mMasterBahan.add("D");mMasterBahan.add("D");mMasterBahan.add("D");mMasterBahan.add("D");mMasterBahan.add("D");
+        mMasterTipe.addAll(UserData.valSpinner);
 
         UserData data = new UserData();
         data.fetchDataInventory(getApplicationContext());

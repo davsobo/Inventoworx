@@ -12,7 +12,7 @@ public class DBConnection {
     public static final String INVENTORY_URL = "http://invento.html-5.me//inventory.php";
     public static String COOKIE = "";
     public static void setCOOKIE(String token){
-        COOKIE = "__test=" + token + "; expires=Thu, 31-Dec-37 23:55:55 GMT; path=/";
+        COOKIE = "__test=" + token + ";";
     }
     //If server response is equal to this that means login is successful
     public static final String LOGIN_SUCCESS = "success";

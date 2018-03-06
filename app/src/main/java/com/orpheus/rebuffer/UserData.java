@@ -70,11 +70,8 @@ public class UserData {
                             try {
                                 JSONArray mInventory = new JSONArray(response);
 
-<<<<<<< HEAD
                                 Log.d("LOL",response);
-=======
 
->>>>>>> 8c7fc7546991c31b060e81fee1da6a119b29b901
                                 mapMerk = new ArrayList<String>();
                                 mapTipe = new ArrayList<String>();
                                 mapUkuran = new ArrayList<String>();
@@ -83,9 +80,9 @@ public class UserData {
                                 mapLokasi = new ArrayList<String>();
                                 Log.d("Json Response: Inventory", "INVENTORY FETCH SUCCESS : "+  mInventory.length()+ "DATA");
                                 for (int i = 0; i < mInventory.length(); i++) {
-                                    String temp = mInventory.getJSONObject(i).getString("merk") +  "\t" +  mInventory.getJSONObject(i).getString("tipe") +  "\t" +  mInventory.getJSONObject(i).getString("ukuran") +  "\t" +  mInventory.getJSONObject(i).getString("bahan") +  "\t" +  mInventory.getJSONObject(i).getString("jumlah") +  "\t" +  mInventory.getJSONObject(i).getString("lokasi");
+                                    /*String temp = mInventory.getJSONObject(i).getString("merk") +  "\t" +  mInventory.getJSONObject(i).getString("tipe") +  "\t" +  mInventory.getJSONObject(i).getString("ukuran") +  "\t" +  mInventory.getJSONObject(i).getString("bahan") +  "\t" +  mInventory.getJSONObject(i).getString("jumlah") +  "\t" +  mInventory.getJSONObject(i).getString("lokasi");
                                     valSpinner.add(temp);
-                                    mapSpinner.put(i,mInventory.getJSONObject(i).getString("id"));
+                                    mapSpinner.put(i,mInventory.getJSONObject(i).getString("id"));*/
 
                                     mapMerk.add(mInventory.getJSONObject(i).getString("merk"));
                                     mapTipe.add(mInventory.getJSONObject(i).getString("tipe"));
