@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -12,10 +13,10 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,11 +33,6 @@ public class UserData {
     public static ArrayList<String> mapBahan;
     public static ArrayList<String> mapJumlah;
     public static ArrayList<String> mapLokasi;
-
-
-    /** Use This Instead for the Spinner SH*T*/
-    public static ArrayList<String> valSpinner = new ArrayList<String>();
-    public static Map<Integer,String> mapSpinner = new HashMap<Integer, String>();
 
 //    public static Map<String, Map<String, String>> mapInventory = new HashMap<String, Map<String, String>>();
 
@@ -70,11 +66,7 @@ public class UserData {
                             try {
                                 JSONArray mInventory = new JSONArray(response);
 
-<<<<<<< HEAD
                                 Log.d("LOL",response);
-=======
-
->>>>>>> 8c7fc7546991c31b060e81fee1da6a119b29b901
                                 mapMerk = new ArrayList<String>();
                                 mapTipe = new ArrayList<String>();
                                 mapUkuran = new ArrayList<String>();
@@ -83,10 +75,6 @@ public class UserData {
                                 mapLokasi = new ArrayList<String>();
                                 Log.d("Json Response: Inventory", "INVENTORY FETCH SUCCESS : "+  mInventory.length()+ "DATA");
                                 for (int i = 0; i < mInventory.length(); i++) {
-                                    String temp = mInventory.getJSONObject(i).getString("merk") +  "\t" +  mInventory.getJSONObject(i).getString("tipe") +  "\t" +  mInventory.getJSONObject(i).getString("ukuran") +  "\t" +  mInventory.getJSONObject(i).getString("bahan") +  "\t" +  mInventory.getJSONObject(i).getString("jumlah") +  "\t" +  mInventory.getJSONObject(i).getString("lokasi");
-                                    valSpinner.add(temp);
-                                    mapSpinner.put(i,mInventory.getJSONObject(i).getString("id"));
-
                                     mapMerk.add(mInventory.getJSONObject(i).getString("merk"));
                                     mapTipe.add(mInventory.getJSONObject(i).getString("tipe"));
                                     mapUkuran.add(mInventory.getJSONObject(i).getString("ukuran"));
@@ -151,89 +139,5 @@ public class UserData {
 
         Volley.newRequestQueue(context).add(stringRequest);
     }
-
-//    ==================================================================
-//    ==================================================================
-//    ===================TEST CAllBACK FOR VOLLEY=======================
-//    ==================================================================
-//    ==================================================================
-
-    /**
-    NOTE: ISI VARIABLE remainMap DULU BARU DIJALANIN remainDataInventory nya
-     "merk"
-     "tipe"
-     "ukuran"
-     "bahan"
-    */
-    public interface VolleyCallback{
-        void onSuccess(String string);
-    }
-    public static Map<String,String> remainMap = new HashMap<>();
-    private static int remain = 0;
-    public static Integer remainDataInventory(Context context, final VolleyCallback callback) {
-        //Creating a string request
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, DBConnection.INVENTORY_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
-                        Log.d("Json Response: Remains", response);
-                        //If we are getting success from server
-                        if (response.length() > 10) {
-                            try {
-                                JSONArray mInventory = new JSONArray(response);
-                                JSONObject data = new JSONObject();
-                                data = mInventory.getJSONObject(0);
-                                remain = Integer.parseInt(data.getString("jumlah"));
-
-                            } catch (JSONException e) {
-                                Log.d("Json ERROR", "Content: " + e.toString() + " -- Message: " + e.getMessage());
-                            }
-                        } else {
-                            //Displaying an error message on toast
-                            //Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_LONG).show();
-                            Log.d("Json ERROR", "Login Failed");
-
-                        }
-                        callback.onSuccess(response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(getApplicationContext(), "The server unreachable: "+error, Toast.LENGTH_LONG).show();
-                        Log.d("Json Error", error.getMessage() + " -- " + error.toString());
-
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                //Adding parameters to request
-                params.put("function", "VIEW_REMAIN");
-                params.put("merk", remainMap.get("merk"));
-                params.put("tipe", remainMap.get("tipe"));
-                params.put("ukuran", remainMap.get("ukuran"));
-                params.put("bahan", remainMap.get("bahan"));
-
-//                params.put("password", password);
-
-                //returning parameter
-                return params;
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Cookie", DBConnection.COOKIE);
-                return params;
-            }
-        };
-
-        Volley.newRequestQueue(context).add(stringRequest);
-        return remain;
-    }
-
-
 
 }
