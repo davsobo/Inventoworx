@@ -73,6 +73,7 @@ UserRequest.fetchData(
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = pParameter;
+                params.put("user",UserData.getmEmail());
 
                 return params;
 //                return parameters;
