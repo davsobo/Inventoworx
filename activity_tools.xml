@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="com.orpheus.rebuffer.ToolsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/adminTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/default_margin"
+            android:paddingRight="@dimen/default_margin">
+
+            <TextView
+                android:id="@+id/userNama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/default_margin"
+                android:hint="@string/entry_nama"
+                android:textSize="@dimen/bigSize" />
+
+            <TextClock
+                android:id="@+id/textClock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:layout_toEndOf="@id/userNama"
+                android:format24Hour="dd/MMM/yyyy k:mm"
+                android:gravity="center_horizontal"
+                android:paddingBottom="10dp"
+                android:paddingStart="50dp"
+                android:paddingTop="10dp"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/adminMid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/adminTop"
+            android:paddingLeft="@dimen/default_margin"
+            android:paddingRight="@dimen/default_margin">
+            <!--Ini partisi buat merk-->
+            <TextView
+                android:id="@+id/tagmerk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="Merk" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/tagmerk"
+                tools:layout_editor_absoluteX="722dp"
+                tools:layout_editor_absoluteY="916dp" />
+            <!--ini partisi buat tipe-->
+            <TextView
+                android:id="@+id/tagtype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/spinner"
+                android:text="Type" />
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tagtype"
+                android:layout_toEndOf="@id/spinner"
+                android:paddingLeft="@dimen/default_margin" />
+            <!--Ini partisi buat ukuran-->
+            <TextView
+                android:id="@+id/tagukuran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/spinner2"
+                android:paddingLeft="@dimen/bigSize"
+                android:text="Ukuran" />
+
+            <Spinner
+                android:id="@+id/spinner3"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tagukuran"
+                android:layout_toEndOf="@id/spinner2"
+                android:paddingLeft="@dimen/default_margin" />
+            <!--Ini partisi buat bahan-->
+            <TextView
+                android:id="@+id/tagbahan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/spinner"
+                android:text="Bahan" />
+
+            <Spinner
+                android:id="@+id/spinner4"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tagbahan"
+                android:paddingLeft="@dimen/default_margin" />
+
+            <!--Ini partisi buat jumlah-->
+            <TextView
+                android:id="@+id/tagjumlah"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spinner2"
+                android:layout_toEndOf="@+id/spinner4"
+                android:text="Jumlah" />
+
+            <Spinner
+                android:id="@+id/spinner5"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tagjumlah"
+                android:layout_toEndOf="@id/spinner4"
+                android:paddingLeft="@dimen/default_margin" />
+
+            <!--Ini partisi buat lokasi-->
+            <TextView
+                android:id="@+id/tagLokasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spinner3"
+                android:layout_toEndOf="@+id/spinner5"
+                android:paddingLeft="@dimen/bigSize"
+                android:text="Lokasi" />
+
+            <Spinner
+                android:id="@+id/spinner6"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tagjumlah"
+                android:layout_toEndOf="@id/spinner5"
+                android:paddingLeft="@dimen/default_margin" />
+
+            <!--Partisi buat button dan sisa-->
+            <Button
+                android:id="@+id/btnmin"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_toEndOf="@id/spinner6"
+                android:background="@drawable/ic_remove_circle_black_36dp" />
+
+            <TextView
+                android:id="@+id/sisa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_toEndOf="@id/btnmin"
+                android:hint="Sisa"
+                android:textSize="@dimen/bigSize" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>
